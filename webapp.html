@@ -1,0 +1,110 @@
+<!--Wordle include css, Javascript, and html in one page-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Wordle</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, 50px);
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+    .tile {
+      width: 50px;
+      height: 50px;
+      border: 2px solid #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .green { background-color: #6aaa64; color: white; }
+    .yellow { background-color: #c9b458; color: white; }
+    .gray { background-color: #787c7e; color: white; }
+    input {
+      text-transform: uppercase;
+      font-size: 20px;
+      padding: 5px;
+      width: 120px;
+      text-align: center;
+    }
+    button {
+      font-size: 18px;
+      padding: 5px 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Mini Wordle</h1>
+  <div id="board" class="board"></div>
+
+  <input type="text" id="guessInput" maxlength="5" placeholder="Guess..." />
+  <button onclick="submitGuess()">Submit</button>
+
+  <script>
+    const secretWord = "PLANE";
+    const maxGuesses = 6;
+    let currentGuess = 0;
+
+    function createBoard() {
+      const board = document.getElementById("board");
+      for (let i = 0; i < maxGuesses * 5; i++) {
+        const tile = document.createElement("div");
+        tile.className = "tile";
+        board.appendChild(tile);
+      }
+    }
+
+    function submitGuess() {
+      const input = document.getElementById("guessInput");
+      const guess = input.value.toUpperCase();
+      if (guess.length !== 5) {
+        alert("Please enter a 5-letter word.");
+        return;
+      }
+
+      const board = document.getElementById("board");
+      const startIdx = currentGuess * 5;
+
+      for (let i = 0; i < 5; i++) {
+        const tile = board.children[startIdx + i];
+        tile.textContent = guess[i];
+        if (guess[i] === secretWord[i]) {
+          tile.classList.add("green");
+        } else if (secretWord.includes(guess[i])) {
+          tile.classList.add("yellow");
+        } else {
+          tile.classList.add("gray");
+        }
+      }
+
+      currentGuess++;
+      input.value = "";
+
+      if (guess === secretWord) {
+        alert("🎉 You guessed it!");
+        input.disabled = true;
+      } else if (currentGuess === maxGuesses) {
+        alert("❌ Out of guesses! The word was " + secretWord);
+        input.disabled = true;
+      }
+    }
+
+    createBoard();
+  </script>
+
+</body>
+</html>

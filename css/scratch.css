@@ -1,0 +1,37 @@
+.common{
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.header{
+    height: 100px;
+    background-color: black;
+    color: white;
+    line-height: 100px;
+}
+
+
+body{
+    background-color: whitesmoke;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    margin:20px;
+}
+
+.left-list{
+    text-align: left;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+.mainbody{
+    text-align: center;
+}
+
+nav{
+    background-color: lightgray;
+    padding: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
